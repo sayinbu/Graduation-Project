@@ -208,6 +208,6 @@ class Whistle:
 # print(f1_score(real,pred))
 
 
-whistle1 = Whistle('anne-anten1.wav')
-whistle2 = Whistle('anne-anten2.wav')
+whistle1 = Whistle('shortWhistles/anne-diedon2.wav')
+whistle2 = Whistle('shortWhistles/anne-diedon3.wav')
 print(whistle1.getCorrWith(whistle2))
