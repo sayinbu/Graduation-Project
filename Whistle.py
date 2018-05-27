@@ -160,9 +160,9 @@ class Whistle:
             strechedData = f(whistle.t)
             numOfShift = findShiftFactor(whistle.leadingFreqsOverTime, strechedData)
             strechedData = shift(strechedData, numOfShift, cval=600)
-            # plt.plot(whistle.t, strechedData,'r')
-            # plt.plot(whistle.t, whistle.leadingFreqsOverTime,'b')
-            # plt.show()
+            plt.plot(whistle.t, strechedData,'r')
+            plt.plot(whistle.t, whistle.leadingFreqsOverTime,'b')
+            plt.show()
             return np.corrcoef(whistle.leadingFreqsOverTime,strechedData)[0][1]
             # distance, path = fastdtw(whistle.leadingFreqsOverTime, strechedData, dist=euclidean)
             # return distance
@@ -173,9 +173,9 @@ class Whistle:
             strechedData = f(self.t)
             numOfShift = findShiftFactor(self.leadingFreqsOverTime, strechedData)
             strechedData = shift(strechedData, numOfShift, cval=600)
-            # plt.plot(self.t, strechedData, 'r')
-            # plt.plot(self.t, self.leadingFreqsOverTime, 'b')
-            # plt.show()
+            plt.plot(self.t, strechedData, 'r')
+            plt.plot(self.t, self.leadingFreqsOverTime, 'b')
+            plt.show()
             return np.corrcoef(self.leadingFreqsOverTime, strechedData)[0][1]
             # distance, path = fastdtw(self.leadingFreqsOverTime, strechedData, dist=euclidean)
             # return distance
@@ -189,18 +189,18 @@ class Whistle:
 
 
 #names = ['kurtcan1','kurtcan2','kurtcan3','vural1','vural2','vural3','alimert1','alimert2','alimert3','caner1','caner2','caner3','anten1','anten2','anten3','batikan1','batikan2','batikan3','diedon1','diedon2','diedon3','alakasiz2','alakasiz3','alakasiz4','alakasiz5']
-names = ['sofu2','sofu3','mumtaz1','mumtaz2','mumtaz3','dilanaz1','dilanaz2','dilanaz3','aziz1','aziz2','aziz3','anten1','anten2','anten3','diedon1','diedon2','diedon3','alakasiz1','alakasiz2','alakasiz3','alakasiz4','benzer']
+names = ['mumtaz1','mumtaz2','mumtaz3','dilanaz1','dilanaz2','dilanaz3','aziz1','aziz2','aziz3','anten1','anten2','anten3','diedon1','diedon2','diedon3','alakasiz1','alakasiz2','alakasiz3','benzer']
 
 
-results = {}
-for el in list(itertools.combinations(names, 2)):
-    whistle1 = Whistle('shortWhistles/anne-' + el[0] +'.wav')
-    whistle2 = Whistle('shortWhistles/anne-' + el[1] +'.wav')
-    results[el[0] + ' - ' + el[1] ] = whistle1.getCorrWith(whistle2)
-
-sortedResults = sorted(results.items(), key=operator.itemgetter(1),reverse=True)
-for el in sortedResults:
-    print(el[0] + ' ==> ' + str(el[1]))
+# results = {}
+# for el in list(itertools.combinations(names, 2)):
+#     whistle1 = Whistle('shortWhistles/anne-' + el[0] +'.wav')
+#     whistle2 = Whistle('shortWhistles/anne-' + el[1] +'.wav')
+#     results[el[0] + ' - ' + el[1] ] = whistle1.getCorrWith(whistle2)
+#
+# sortedResults = sorted(results.items(), key=operator.itemgetter(1),reverse=True)
+# for el in sortedResults:
+#     print(el[0] + ' ==> ' + str(el[1]))
 
 # whistle1 = Whistle('vuraltest1.wav')
 # whistle2 = Whistle('vuraltest2.wav')
@@ -281,6 +281,6 @@ for el in sortedResults:
 # print(f1_score(real,pred))
 
 
-# whistle1 = Whistle('shortWhistles/anne-diedon3.wav')
-# whistle2 = Whistle('shortWhistles/anne-alakasiz6.wav')
-# print(whistle1.getCorrWith(whistle2))
+whistle1 = Whistle('shortWhistles/anne-aziz3.wav')
+whistle2 = Whistle('shortWhistles/anne-dilanaz1.wav')
+print(whistle1.getCorrWith(whistle2))
