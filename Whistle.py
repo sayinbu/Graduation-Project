@@ -6,9 +6,46 @@ from scipy.interpolate import interp1d
 import itertools
 import operator
 from sklearn.metrics import f1_score
-
 import numpy
+from scipy.spatial.distance import euclidean
+from fastdtw import fastdtw
+from scipy.ndimage.interpolation import shift
 
+def norm_corr(x,y):
+    norm_den = np.sqrt(np.sum(np.square(x)) * np.sum(np.square(y)))
+    return (np.correlate(x,y)/norm_den)[0]
+
+
+from math import *
+
+
+def square_rooted(x):
+    return round(sqrt(sum([a * a for a in x])), 3)
+
+
+def cosine_similarity(x, y):
+    numerator = sum(a * b for a, b in zip(x, y))
+    denominator = square_rooted(x) * square_rooted(y)
+    return round(numerator / float(denominator), 3)
+
+def manhattan_distance(x, y):
+    return sum(abs(a - b) for a, b in zip(x, y))
+
+def distancePercentage(x,y,threshold):
+    count = 0
+    for i in range(0,len(x)):
+        if abs(x[i] - y[i]) < threshold:
+            count += 1
+    return count/len(x)
+
+def derivativePercentage(x,y):
+    count = 0
+    gradX = np.gradient(x)
+    gradY = np.gradient(y)
+    for i in range(0,len(x)):
+        if gradX[i] == gradY[i]:
+            count += 1
+    return count/len(x)
 
 def smooth(x, window_len=11, window='hanning'):
     if x.ndim != 1:
@@ -33,7 +70,11 @@ def smooth(x, window_len=11, window='hanning'):
     y = numpy.convolve(w / w.sum(), s, mode='valid')
     return y
 
+def findShiftFactor(x,y):
+    array = np.correlate(x,y,"same")
+    return (np.argmax(array) - np.ceil(len(array)/2))
 
+##################################################################################################
 class Whistle:
 
     def __init__(self, filename):
@@ -42,10 +83,10 @@ class Whistle:
         self.__clearNonWhistlePoints(leadingFreqsOverTime)
         leadingFreqsOverTime, t = self.__deleteInitialZeros(leadingFreqsOverTime, t)
         leadingFreqsOverTime, t = self.__deleteLastZeros(leadingFreqsOverTime, t)
-        self.t = np.floor(t * 100000) / 100000
+        self.t = np.floor(t * 10000) / 10000
         self.leadingFreqsOverTime = leadingFreqsOverTime
         self.t = np.concatenate([[0], self.t])
-        self.leadingFreqsOverTime = np.concatenate([[0], self.leadingFreqsOverTime])
+        self.leadingFreqsOverTime = np.concatenate([[600], self.leadingFreqsOverTime])
 
     def __getSoundSpectrogram(self, filename):
         sampFreq, snd = wavfile.read(filename)
@@ -112,22 +153,54 @@ class Whistle:
             return (array[:-numOfZeros], t[:-numOfZeros])
 
     def getCorrWith(self, whistle):
-        f = interp1d(whistle.t, whistle.leadingFreqsOverTime)
-        squeezedTime = np.floor(((self.t * whistle.t[-1]) / self.t[-1])* 100000) / 100000
-        return np.corrcoef(smooth(self.leadingFreqsOverTime,window_len=30), smooth(f(squeezedTime),window_len=30))[0][1]
+        if whistle.t[-1] > self.t[-1]:
+            newTime = np.floor(((self.t * whistle.t[-1]) / self.t[-1]) * 10000) / 10000
+            f = interp1d(newTime, self.leadingFreqsOverTime)
+            whistle.t[-1] = newTime[-1]
+            strechedData = f(whistle.t)
+            numOfShift = findShiftFactor(whistle.leadingFreqsOverTime, strechedData)
+            strechedData = shift(strechedData, numOfShift, cval=600)
+            # plt.plot(whistle.t, strechedData,'r')
+            # plt.plot(whistle.t, whistle.leadingFreqsOverTime,'b')
+            # plt.show()
+            return np.corrcoef(whistle.leadingFreqsOverTime,strechedData)[0][1]
+            # distance, path = fastdtw(whistle.leadingFreqsOverTime, strechedData, dist=euclidean)
+            # return distance
+        else:
+            newTime = np.floor(((whistle.t * self.t[-1]) / whistle.t[-1]) * 10000) / 10000
+            f = interp1d(newTime, whistle.leadingFreqsOverTime)
+            self.t[-1] = newTime[-1]
+            strechedData = f(self.t)
+            numOfShift = findShiftFactor(self.leadingFreqsOverTime, strechedData)
+            strechedData = shift(strechedData, numOfShift, cval=600)
+            # plt.plot(self.t, strechedData, 'r')
+            # plt.plot(self.t, self.leadingFreqsOverTime, 'b')
+            # plt.show()
+            return np.corrcoef(self.leadingFreqsOverTime, strechedData)[0][1]
+            # distance, path = fastdtw(self.leadingFreqsOverTime, strechedData, dist=euclidean)
+            # return distance
 
 
-# names = ['kurtcan1','kurtcan2','kurtcan3','vural1','vural2','vural3','alimert1','alimert2','alimert3','caner1','caner2','caner3','anten1','anten2','anten3','batikan1','batikan2','batikan3','diedon1','diedon2','diedon3','alakasiz1','alakasiz2','alakasiz3','alakasiz4','alakasiz5']
-#
-# results = {}
-# for el in list(itertools.combinations(names, 2)):
-#     whistle1 = Whistle('whistles/' + el[0] +'.wav')
-#     whistle2 = Whistle('whistles/' + el[1] +'.wav')
-#     results[el[0] + ' - ' + el[1] ] = whistle1.getCorrWith(whistle2)
-#
-# sortedResults = sorted(results.items(), key=operator.itemgetter(1),reverse=True)
-# for el in sortedResults:
-#     print(el[0] + ' ==> ' + str(el[1]))
+
+        #f = interp1d(whistle.t, whistle.leadingFreqsOverTime)
+        #squeezedTime = np.floor(((self.t * whistle.t[-1]) / self.t[-1])* 100000) / 100000
+        #distance, path = fastdtw(self.leadingFreqsOverTime, whistle.leadingFreqsOverTime, dist=euclidean)
+        #return distance
+
+
+#names = ['kurtcan1','kurtcan2','kurtcan3','vural1','vural2','vural3','alimert1','alimert2','alimert3','caner1','caner2','caner3','anten1','anten2','anten3','batikan1','batikan2','batikan3','diedon1','diedon2','diedon3','alakasiz2','alakasiz3','alakasiz4','alakasiz5']
+names = ['sofu2','sofu3','mumtaz1','mumtaz2','mumtaz3','dilanaz1','dilanaz2','dilanaz3','aziz1','aziz2','aziz3','anten1','anten2','anten3','diedon1','diedon2','diedon3','alakasiz1','alakasiz2','alakasiz3','alakasiz4','benzer']
+
+
+results = {}
+for el in list(itertools.combinations(names, 2)):
+    whistle1 = Whistle('shortWhistles/anne-' + el[0] +'.wav')
+    whistle2 = Whistle('shortWhistles/anne-' + el[1] +'.wav')
+    results[el[0] + ' - ' + el[1] ] = whistle1.getCorrWith(whistle2)
+
+sortedResults = sorted(results.items(), key=operator.itemgetter(1),reverse=True)
+for el in sortedResults:
+    print(el[0] + ' ==> ' + str(el[1]))
 
 # whistle1 = Whistle('vuraltest1.wav')
 # whistle2 = Whistle('vuraltest2.wav')
@@ -208,6 +281,6 @@ class Whistle:
 # print(f1_score(real,pred))
 
 
-whistle1 = Whistle('shortWhistles/anne-diedon2.wav')
-whistle2 = Whistle('shortWhistles/anne-diedon3.wav')
-print(whistle1.getCorrWith(whistle2))
+# whistle1 = Whistle('shortWhistles/anne-diedon3.wav')
+# whistle2 = Whistle('shortWhistles/anne-alakasiz6.wav')
+# print(whistle1.getCorrWith(whistle2))

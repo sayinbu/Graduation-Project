@@ -68,7 +68,7 @@ def deleteLastZeros(array,t):
 
 ################################################################
 
-sampFreq, snd = wavfile.read('whistles/alimert2.wav')
+sampFreq, snd = wavfile.read('whistles/anten2.wav')
 
 #snd.astype('float')
 
@@ -79,9 +79,25 @@ monoChannelSound = (snd[:,0] + snd[:,1]) / 2
 #totalTime = numOfPoints / sampFreq
 
 timeArray = np.arange(0, numOfPoints, 1)
-timeArray = (timeArray / sampFreq) * 1000
+timeArray = (timeArray / sampFreq)
+
 
 f, t, Sxx = signal.spectrogram(monoChannelSound, sampFreq)
+for i in range(0, len(f)):
+    if f[i] > 5000:
+        x = (i)
+        newF = f[:x]
+        print(f)
+        print(f[:x])
+        newSxx = Sxx[:x]
+        print(newF.shape)
+        print(newSxx.shape)
+        break
+
+plt.pcolormesh(t, newF, newSxx)
+plt.ylabel('Frequency [Hz]')
+plt.xlabel('Time [sec]')
+plt.show()
 
 highFrequencies = np.array([])
 for column in Sxx.T:
