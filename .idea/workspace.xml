@@ -5,10 +5,11 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/anne-anten1.wav" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/anne-anten2.wav" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/anne-anten3.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shortWhistles/anne-alakasiz4.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shortWhistles/anne-alakasiz6.wav" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/shortWhistles/anne-sofu2.wav" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/shortWhistles/anne-sofu3.wav" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shortWhistles/anne-alakasiz4.wav" afterPath="$PROJECT_DIR$/shortWhistles/anne-alakasiz4.wav" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shortWhistles/anne-alakasiz6.wav" afterPath="$PROJECT_DIR$/shortWhistles/anne-alakasiz6.wav" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Whistle.py" afterPath="$PROJECT_DIR$/Whistle.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,8 +24,8 @@
       <file leaf-file-name="isWhistle.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/isWhistle.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="124" column="0" lean-forward="true" selection-start-line="124" selection-start-column="0" selection-end-line="125" selection-end-column="10" />
+            <state relative-caret-position="2160">
+              <caret line="124" column="0" lean-forward="false" selection-start-line="124" selection-start-column="0" selection-end-line="125" selection-end-column="10" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -35,12 +36,17 @@
       <file leaf-file-name="Whistle.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Whistle.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="281" column="0" lean-forward="true" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
+            <state relative-caret-position="216">
+              <caret line="224" column="12" lean-forward="false" selection-start-line="224" selection-start-column="12" selection-end-line="224" selection-end-column="12" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-                <element signature="e#3698#4206#0" expanded="false" />
-                <element signature="e#4849#5141#0" expanded="false" />
+                <element signature="e#1571#1617#0" expanded="false" />
+                <element signature="e#1653#1803#0" expanded="false" />
+                <element signature="e#1928#2055#0" expanded="false" />
+                <element signature="e#2092#2265#0" expanded="false" />
+                <element signature="e#2319#3028#0" expanded="false" />
+                <element signature="e#4742#5250#0" expanded="false" />
+                <element signature="e#5893#6185#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -77,6 +83,8 @@
       <find>class</find>
       <find>maxFreq</find>
       <find>__getSoundSpectrogram</find>
+      <find>alakasiz8</find>
+      <find>compareMostFreqNumberDistribition</find>
     </findStrings>
     <replaceStrings>
       <replace>monoChannelSound</replace>
@@ -138,8 +146,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="RecentsManager">
@@ -248,13 +256,13 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20790629" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37285492" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37285492" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -270,11 +278,50 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="3" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/isWhistle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2160">
+          <caret line="124" column="0" lean-forward="false" selection-start-line="124" selection-start-column="0" selection-end-line="125" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2682">
+          <caret line="171" column="59" lean-forward="false" selection-start-line="171" selection-start-column="59" selection-end-line="171" selection-end-column="59" />
+          <folding>
+            <element signature="e#815#833#0" expanded="true" />
+            <element signature="e#3194#3702#0" expanded="false" />
+            <element signature="e#4345#4637#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Whistle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4662">
+          <caret line="281" column="0" lean-forward="true" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#1571#1617#0" expanded="false" />
+            <element signature="e#1653#1803#0" expanded="false" />
+            <element signature="e#1928#2055#0" expanded="false" />
+            <element signature="e#2092#2265#0" expanded="false" />
+            <element signature="e#2319#3028#0" expanded="false" />
+            <element signature="e#4742#5250#0" expanded="false" />
+            <element signature="e#5893#6185#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/isWhistle.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -291,8 +338,13 @@
           <caret line="212" column="37" lean-forward="false" selection-start-line="212" selection-start-column="37" selection-end-line="212" selection-end-column="37" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#3698#4206#0" expanded="false" />
-            <element signature="e#4849#5141#0" expanded="false" />
+            <element signature="e#1571#1617#0" expanded="false" />
+            <element signature="e#1653#1803#0" expanded="false" />
+            <element signature="e#1928#2055#0" expanded="false" />
+            <element signature="e#2092#2265#0" expanded="false" />
+            <element signature="e#2319#3028#0" expanded="false" />
+            <element signature="e#4742#5250#0" expanded="false" />
+            <element signature="e#5893#6185#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -337,8 +389,13 @@
           <caret line="212" column="37" lean-forward="true" selection-start-line="212" selection-start-column="37" selection-end-line="212" selection-end-column="37" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#3698#4206#0" expanded="false" />
-            <element signature="e#4849#5141#0" expanded="false" />
+            <element signature="e#1571#1617#0" expanded="false" />
+            <element signature="e#1653#1803#0" expanded="false" />
+            <element signature="e#1928#2055#0" expanded="false" />
+            <element signature="e#2092#2265#0" expanded="false" />
+            <element signature="e#2319#3028#0" expanded="false" />
+            <element signature="e#4742#5250#0" expanded="false" />
+            <element signature="e#5893#6185#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -371,8 +428,13 @@
           <caret line="123" column="56" lean-forward="false" selection-start-line="123" selection-start-column="56" selection-end-line="123" selection-end-column="56" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#3698#4206#0" expanded="false" />
-            <element signature="e#4849#5141#0" expanded="false" />
+            <element signature="e#1571#1617#0" expanded="false" />
+            <element signature="e#1653#1803#0" expanded="false" />
+            <element signature="e#1928#2055#0" expanded="false" />
+            <element signature="e#2092#2265#0" expanded="false" />
+            <element signature="e#2319#3028#0" expanded="false" />
+            <element signature="e#4742#5250#0" expanded="false" />
+            <element signature="e#5893#6185#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -393,8 +455,13 @@
           <caret line="128" column="41" lean-forward="true" selection-start-line="128" selection-start-column="41" selection-end-line="128" selection-end-column="41" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#3698#4206#0" expanded="false" />
-            <element signature="e#4849#5141#0" expanded="false" />
+            <element signature="e#1571#1617#0" expanded="false" />
+            <element signature="e#1653#1803#0" expanded="false" />
+            <element signature="e#1928#2055#0" expanded="false" />
+            <element signature="e#2092#2265#0" expanded="false" />
+            <element signature="e#2319#3028#0" expanded="false" />
+            <element signature="e#4742#5250#0" expanded="false" />
+            <element signature="e#5893#6185#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -439,8 +506,13 @@
           <caret line="81" column="37" lean-forward="false" selection-start-line="81" selection-start-column="37" selection-end-line="81" selection-end-column="37" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#3698#4206#0" expanded="false" />
-            <element signature="e#4849#5141#0" expanded="false" />
+            <element signature="e#1571#1617#0" expanded="false" />
+            <element signature="e#1653#1803#0" expanded="false" />
+            <element signature="e#1928#2055#0" expanded="false" />
+            <element signature="e#2092#2265#0" expanded="false" />
+            <element signature="e#2319#3028#0" expanded="false" />
+            <element signature="e#4742#5250#0" expanded="false" />
+            <element signature="e#5893#6185#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -461,8 +533,13 @@
           <caret line="15" column="18" lean-forward="true" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#3698#4206#0" expanded="false" />
-            <element signature="e#4849#5141#0" expanded="false" />
+            <element signature="e#1571#1617#0" expanded="false" />
+            <element signature="e#1653#1803#0" expanded="false" />
+            <element signature="e#1928#2055#0" expanded="false" />
+            <element signature="e#2092#2265#0" expanded="false" />
+            <element signature="e#2319#3028#0" expanded="false" />
+            <element signature="e#4742#5250#0" expanded="false" />
+            <element signature="e#5893#6185#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -649,8 +726,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/isWhistle.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="124" column="0" lean-forward="true" selection-start-line="124" selection-start-column="0" selection-end-line="125" selection-end-column="10" />
+        <state relative-caret-position="2160">
+          <caret line="124" column="0" lean-forward="false" selection-start-line="124" selection-start-column="0" selection-end-line="125" selection-end-column="10" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -659,12 +736,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Whistle.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="281" column="0" lean-forward="true" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
+        <state relative-caret-position="216">
+          <caret line="224" column="12" lean-forward="false" selection-start-line="224" selection-start-column="12" selection-end-line="224" selection-end-column="12" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#3698#4206#0" expanded="false" />
-            <element signature="e#4849#5141#0" expanded="false" />
+            <element signature="e#1571#1617#0" expanded="false" />
+            <element signature="e#1653#1803#0" expanded="false" />
+            <element signature="e#1928#2055#0" expanded="false" />
+            <element signature="e#2092#2265#0" expanded="false" />
+            <element signature="e#2319#3028#0" expanded="false" />
+            <element signature="e#4742#5250#0" expanded="false" />
+            <element signature="e#5893#6185#0" expanded="false" />
           </folding>
         </state>
       </provider>

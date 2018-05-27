@@ -10,6 +10,44 @@ import numpy
 from scipy.spatial.distance import euclidean
 from fastdtw import fastdtw
 from scipy.ndimage.interpolation import shift
+from scipy import stats
+
+def compareMostFreqNumberDistribition(x,y,n):
+    plt.plot(x, 'r')
+    plt.plot(y, 'b')
+    plt.show()
+    x = np.delete(x, numpy.where(x <= 800))
+    y = np.delete(y, numpy.where(y <= 800))
+    plt.plot(x, 'r')
+    plt.plot(y, 'b')
+    plt.show()
+    countsX = []
+    countsY = []
+    for i in range(0,n):
+        countX = stats.mode(x)[1][0]
+        modeX = stats.mode(x)[0][0]
+        countY = stats.mode(y)[1][0]
+        modeY = stats.mode(y)[0][0]
+        countsX = np.concatenate([countsX,[countX]])
+        countsY = np.concatenate([countsY,[countY]])
+        x = np.delete(x,numpy.where(x == modeX))
+        y = np.delete(y,numpy.where(y == modeY))
+        plt.plot(x, 'r')
+        plt.plot(y, 'b')
+        plt.show()
+    print(countsX)
+    print(countsY)
+    return (manhattan_distance(countsX,countsY))
+
+
+def stdevDifferences(x,y):
+    return abs(np.std(x) - np.std(y))
+
+def stdevOfDistances(x,y):
+    distances = (x-y)
+    return np.std(distances)
+    #return (stats.mode(distances)[1][0] / len(distances))
+
 
 def norm_corr(x,y):
     norm_den = np.sqrt(np.sum(np.square(x)) * np.sum(np.square(y)))
@@ -160,9 +198,13 @@ class Whistle:
             strechedData = f(whistle.t)
             numOfShift = findShiftFactor(whistle.leadingFreqsOverTime, strechedData)
             strechedData = shift(strechedData, numOfShift, cval=600)
-            plt.plot(whistle.t, strechedData,'r')
-            plt.plot(whistle.t, whistle.leadingFreqsOverTime,'b')
-            plt.show()
+            # plt.plot(whistle.t, strechedData,'r')
+            # plt.plot(whistle.t, whistle.leadingFreqsOverTime,'b')
+            # plt.show()
+            # plt.plot(smooth(strechedData,window_len=20),'r')
+            # plt.plot(smooth(whistle.leadingFreqsOverTime,window_len=20),'b')
+            # plt.show()
+            #return compareMostFreqNumberDistribition(smooth(whistle.leadingFreqsOverTime,window_len=50),smooth(strechedData,window_len=50),3)
             return np.corrcoef(whistle.leadingFreqsOverTime,strechedData)[0][1]
             # distance, path = fastdtw(whistle.leadingFreqsOverTime, strechedData, dist=euclidean)
             # return distance
@@ -173,9 +215,13 @@ class Whistle:
             strechedData = f(self.t)
             numOfShift = findShiftFactor(self.leadingFreqsOverTime, strechedData)
             strechedData = shift(strechedData, numOfShift, cval=600)
-            plt.plot(self.t, strechedData, 'r')
-            plt.plot(self.t, self.leadingFreqsOverTime, 'b')
-            plt.show()
+            # plt.plot(self.t, strechedData, 'r')
+            # plt.plot(self.t, self.leadingFreqsOverTime, 'b')
+            # plt.show()
+            # plt.plot(smooth(strechedData,window_len=60), 'r')
+            # plt.plot(smooth(self.leadingFreqsOverTime,window_len=60), 'b')
+            # plt.show()
+            #return compareMostFreqNumberDistribition(smooth(self.leadingFreqsOverTime,window_len=50), smooth(strechedData,window_len=50),3)
             return np.corrcoef(self.leadingFreqsOverTime, strechedData)[0][1]
             # distance, path = fastdtw(self.leadingFreqsOverTime, strechedData, dist=euclidean)
             # return distance
@@ -189,7 +235,7 @@ class Whistle:
 
 
 #names = ['kurtcan1','kurtcan2','kurtcan3','vural1','vural2','vural3','alimert1','alimert2','alimert3','caner1','caner2','caner3','anten1','anten2','anten3','batikan1','batikan2','batikan3','diedon1','diedon2','diedon3','alakasiz2','alakasiz3','alakasiz4','alakasiz5']
-names = ['mumtaz1','mumtaz2','mumtaz3','dilanaz1','dilanaz2','dilanaz3','aziz1','aziz2','aziz3','anten1','anten2','anten3','diedon1','diedon2','diedon3','alakasiz1','alakasiz2','alakasiz3','benzer']
+names = ['aziz1','aziz2','aziz3','anten1','anten2','anten3','diedon1','diedon2','diedon3','alakasiz1','alakasiz2','alakasiz3','alakasiz4','alakasiz5','alakasiz6','alakasiz7','alakasiz8','alakasiz9','alakasiz10','benzer']
 
 
 # results = {}
@@ -198,13 +244,14 @@ names = ['mumtaz1','mumtaz2','mumtaz3','dilanaz1','dilanaz2','dilanaz3','aziz1',
 #     whistle2 = Whistle('shortWhistles/anne-' + el[1] +'.wav')
 #     results[el[0] + ' - ' + el[1] ] = whistle1.getCorrWith(whistle2)
 #
+# #sortedResults = sorted(results.items(), key=operator.itemgetter(1))
 # sortedResults = sorted(results.items(), key=operator.itemgetter(1),reverse=True)
 # for el in sortedResults:
 #     print(el[0] + ' ==> ' + str(el[1]))
 
-# whistle1 = Whistle('vuraltest1.wav')
-# whistle2 = Whistle('vuraltest2.wav')
-# print(whistle1.getCorrWith(whistle2))
+whistle1 = Whistle('shortWhistles/anne-aziz3.wav')
+whistle2 = Whistle('shortWhistles/anne-alakasiz10.wav')
+print(whistle1.getCorrWith(whistle2))
 
 # names = ['kurtcan', 'vural', 'alimert', 'caner', 'anten', 'batikan', 'diedon']
 #
@@ -279,8 +326,3 @@ names = ['mumtaz1','mumtaz2','mumtaz3','dilanaz1','dilanaz2','dilanaz3','aziz1',
 #     else:
 #         real = np.append(real, [0])
 # print(f1_score(real,pred))
-
-
-whistle1 = Whistle('shortWhistles/anne-aziz3.wav')
-whistle2 = Whistle('shortWhistles/anne-dilanaz1.wav')
-print(whistle1.getCorrWith(whistle2))
