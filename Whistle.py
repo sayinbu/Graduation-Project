@@ -5,6 +5,9 @@ from scipy import signal
 from scipy.interpolate import interp1d
 import itertools
 import operator
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
 from sklearn.metrics import f1_score
 import numpy
 from scipy.spatial.distance import euclidean
@@ -204,10 +207,10 @@ class Whistle:
             # plt.plot(smooth(strechedData,window_len=20),'r')
             # plt.plot(smooth(whistle.leadingFreqsOverTime,window_len=20),'b')
             # plt.show()
-            #return compareMostFreqNumberDistribition(smooth(whistle.leadingFreqsOverTime,window_len=50),smooth(strechedData,window_len=50),3)
-            return np.corrcoef(whistle.leadingFreqsOverTime,strechedData)[0][1]
-            # distance, path = fastdtw(whistle.leadingFreqsOverTime, strechedData, dist=euclidean)
-            # return distance
+            #return manhattan_distance(smooth(whistle.leadingFreqsOverTime),smooth(strechedData))
+            #return manhattan_distance(smooth(whistle.leadingFreqsOverTime),smooth(strechedData))
+            distance, path = fastdtw((whistle.leadingFreqsOverTime), (strechedData), dist=euclidean)
+            return distance
         else:
             newTime = np.floor(((whistle.t * self.t[-1]) / whistle.t[-1]) * 10000) / 10000
             f = interp1d(newTime, whistle.leadingFreqsOverTime)
@@ -221,108 +224,73 @@ class Whistle:
             # plt.plot(smooth(strechedData,window_len=60), 'r')
             # plt.plot(smooth(self.leadingFreqsOverTime,window_len=60), 'b')
             # plt.show()
-            #return compareMostFreqNumberDistribition(smooth(self.leadingFreqsOverTime,window_len=50), smooth(strechedData,window_len=50),3)
-            return np.corrcoef(self.leadingFreqsOverTime, strechedData)[0][1]
-            # distance, path = fastdtw(self.leadingFreqsOverTime, strechedData, dist=euclidean)
-            # return distance
+            #return manhattan_distance(smooth(self.leadingFreqsOverTime), smooth(strechedData))
+            return manhattan_distance(smooth(self.leadingFreqsOverTime), smooth(strechedData))
+            distance, path = fastdtw((self.leadingFreqsOverTime), (strechedData), dist=euclidean)
+            return distance
 
-
-
-        #f = interp1d(whistle.t, whistle.leadingFreqsOverTime)
-        #squeezedTime = np.floor(((self.t * whistle.t[-1]) / self.t[-1])* 100000) / 100000
-        #distance, path = fastdtw(self.leadingFreqsOverTime, whistle.leadingFreqsOverTime, dist=euclidean)
-        #return distance
-
-
-#names = ['kurtcan1','kurtcan2','kurtcan3','vural1','vural2','vural3','alimert1','alimert2','alimert3','caner1','caner2','caner3','anten1','anten2','anten3','batikan1','batikan2','batikan3','diedon1','diedon2','diedon3','alakasiz2','alakasiz3','alakasiz4','alakasiz5']
-names = ['aziz1','aziz2','aziz3','anten1','anten2','anten3','diedon1','diedon2','diedon3','alakasiz1','alakasiz2','alakasiz3','alakasiz4','alakasiz5','alakasiz6','alakasiz7','alakasiz8','alakasiz9','alakasiz10','benzer']
-
-
+###################################################################################################
+# names = ['vural1','vural2','vural3','anten1','anten2','anten3','diedon1','diedon2','diedon3','alakasiz1','alakasiz2','alakasiz3','alakasiz4','alakasiz5','alakasiz6','alakasiz7','alakasiz8','alakasiz9','alakasiz10','alakasiz11']
+# #names = ['aziz1','aziz2','aziz3','anten1','anten2','anten3','diedon1','diedon2','diedon3','alakasiz1','alakasiz2','alakasiz3','alakasiz4','alakasiz5','alakasiz6','alakasiz7','alakasiz8','alakasiz9','alakasiz10','benzer']
+#
+#
 # results = {}
 # for el in list(itertools.combinations(names, 2)):
-#     whistle1 = Whistle('shortWhistles/anne-' + el[0] +'.wav')
-#     whistle2 = Whistle('shortWhistles/anne-' + el[1] +'.wav')
+#     whistle1 = Whistle('whistles/' + el[0] +'.wav')
+#     whistle2 = Whistle('whistles/' + el[1] +'.wav')
 #     results[el[0] + ' - ' + el[1] ] = whistle1.getCorrWith(whistle2)
 #
-# #sortedResults = sorted(results.items(), key=operator.itemgetter(1))
-# sortedResults = sorted(results.items(), key=operator.itemgetter(1),reverse=True)
+# sortedResults = sorted(results.items(), key=operator.itemgetter(1))
+# #sortedResults = sorted(results.items(), key=operator.itemgetter(1),reverse=True)
 # for el in sortedResults:
 #     print(el[0] + ' ==> ' + str(el[1]))
 
-whistle1 = Whistle('shortWhistles/anne-aziz3.wav')
-whistle2 = Whistle('shortWhistles/anne-alakasiz10.wav')
-print(whistle1.getCorrWith(whistle2))
+# whistle1 = Whistle('shortWhistles/anne-anten1.wav')
+# whistle2 = Whistle('shortWhistles/anne-anten2.wav')
+# print(whistle1.getCorrWith(whistle2))
+###################################################################################################
 
-# names = ['kurtcan', 'vural', 'alimert', 'caner', 'anten', 'batikan', 'diedon']
-#
-# for name in names:
-#     whistle1 = Whistle('whistles/' + name + '1.wav')
-#     whistle2 = Whistle('whistles/' + name + '2.wav')
-#     whistle3 = Whistle('whistles/' + name + '3.wav')
-#     corr12 = whistle1.getCorrWith(whistle2)
-#     corr13 = whistle1.getCorrWith(whistle3)
-#     corr23 = whistle2.getCorrWith(whistle3)
-#     print(name + ' ==> ' + str((corr12 + corr13 + corr23)/3))
 
-# names = ['kurtcan', 'vural', 'alimert', 'caner', 'anten', 'batikan', 'diedon']
-# for el in list(itertools.combinations(names, 2)):
-#     totalCorr = 0
-#     for i in range(1,4):
-#         for j in range(1,4):
-#             whistle1 = Whistle('whistles/' + el[0] + str(i) + '.wav')
-#             whistle2 = Whistle('whistles/' + el[1] + str(j) + '.wav')
-#             totalCorr += whistle1.getCorrWith(whistle2)
-#     print(el[0] + '-' + el[1] + '==> ' + str(totalCorr/9))
+names = ['vural1','vural2','vural3','anten1','anten2','anten3','diedon1','diedon2','diedon3','alakasiz1','alakasiz2','alakasiz3','alakasiz4','alakasiz5','alakasiz6','alakasiz7','alakasiz8','alakasiz9','alakasiz10','alakasiz11']
+#names = ['aziz1','aziz2','aziz3','anten1','anten2','anten3','diedon1','diedon2','diedon3','alakasiz1','alakasiz2','alakasiz3','alakasiz4','alakasiz5','alakasiz6','alakasiz7','alakasiz8','alakasiz9','alakasiz10','benzer']
 
-# names = ['kurtcan', 'vural', 'alimert', 'caner', 'anten', 'batikan', 'diedon']
-# corrs = np.array([])
-# for name in names:
-#     for i in range(1,4):
-#         for j in range(1,6):
-#             whistle1 = Whistle('whistles/' + name + str(i) + '.wav')
-#             whistle2 = Whistle('whistles/' + 'alakasiz' + str(j) + '.wav')
-#             corrs = np.append(corrs, [whistle1.getCorrWith(whistle2)])
-# print('Average of false matches ==> ' + str(np.average(corrs)))
-# print('Std of false matches ==> ' + str(np.std(corrs)))
+results = np.zeros(190)
+isCorrect = np.zeros(190)
+i = 0
 
-# names = ['kurtcan1','kurtcan2','kurtcan3','vural1','vural2','vural3','alimert1','alimert2','alimert3','caner1','caner2','caner3','anten1','anten2','anten3','batikan1','batikan2','batikan3','diedon1','diedon2','diedon3','alakasiz1','alakasiz2','alakasiz3','alakasiz4','alakasiz5']
-#
-# results = {}
-# corrs = np.array([])
-# real = np.array([])
-# pred = np.array([])
-# for el in list(itertools.combinations(names, 2)):
-#     whistle1 = Whistle('whistles/' + el[0] +'.wav')
-#     whistle2 = Whistle('whistles/' + el[1] +'.wav')
-#     resultCorr = whistle1.getCorrWith(whistle2)
-#     corrs = np.append(corrs, [resultCorr])
-#     if resultCorr > 0.1:
-#         pred = np.append(pred, [1])
-#     else:
-#         pred = np.append(pred, [0])
-#     if el[0][:-1] == 'alakasiz' or el[1][:-1] == 'alakasiz':
-#         real = np.append(real, [0])
-#     else:
-#         real = np.append(real, [1])
-# print(f1_score(real,pred))
+for el in list(itertools.combinations(names, 2)):
+    # whistle1 = Whistle('shortWhistles/anne-' + el[0] +'.wav')
+    # whistle2 = Whistle('shortWhistles/anne-' + el[1] +'.wav')
+    whistle1 = Whistle('whistles/' + el[0] + '.wav')
+    whistle2 = Whistle('whistles/' + el[1] + '.wav')
+    results[i] = whistle1.getCorrWith(whistle2)
+    if el[0][:-1] == 'alakasiz' or el[1][:-1] == 'alakasiz' or el[0][:-2] == 'alakasiz' or el[1][:-2] == 'alakasiz' or \
+                    el[0] == 'benzer' or el[1] == 'benzer':
+        isCorrect[i] = 0
+    else:
+        isCorrect[i] = 1
+    i += 1
 
-# names = ['kurtcan1','kurtcan2','kurtcan3','vural1','vural2','vural3','alimert1','alimert2','alimert3','caner1','caner2','caner3','anten1','anten2','anten3','batikan1','batikan2','batikan3','diedon1','diedon2','diedon3','alakasiz1','alakasiz2','alakasiz3','alakasiz4','alakasiz5']
-#
-# results = {}
-# corrs = np.array([])
-# real = np.array([])
-# pred = np.array([])
-# for el in list(itertools.combinations(names, 2)):
-#     whistle1 = Whistle('whistles/' + el[0] +'.wav')
-#     whistle2 = Whistle('whistles/' + el[1] +'.wav')
-#     resultCorr = whistle1.getCorrWith(whistle2)
-#     corrs = np.append(corrs, [resultCorr])
-#     if resultCorr > 0.35:
-#         pred = np.append(pred, [1])
-#     else:
-#         pred = np.append(pred, [0])
-#     if el[0][:-1] != 'alakasiz' and el[1][:-1] != 'alakasiz' and el[0][:-1] == el[1][:-1]:
-#         real = np.append(real, [1])
-#     else:
-#         real = np.append(real, [0])
-# print(f1_score(real,pred))
+#thresholdValues = np.arange(400000,1400001,2000)
+thresholdValues = [900000]
+f1scores = np.array([])
+for threshold in thresholdValues:
+    pred = np.zeros(190)
+    for i in range(0,190):
+        if results[i] <= threshold:
+            pred[i] = 1
+        else:
+            pred[i] = 0
+    f1score = f1_score(isCorrect,pred,average='weighted')
+    print(str(threshold) + ' - ' + str(f1score))
+    f1scores = np.append(f1scores,np.array([f1score]))
+    print("accuracy:")
+    print(accuracy_score(isCorrect,pred))
+    print("report:")
+    print(classification_report(isCorrect,pred))
+    print("confusion matrix:")
+    print(confusion_matrix(isCorrect,pred))
+plt.plot(thresholdValues, f1scores)
+plt.ylabel('F1 Score')
+plt.xlabel('Threshold')
+plt.show()
